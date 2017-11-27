@@ -283,8 +283,7 @@ class HighCharts
         }
 
         $this->options['series'] = array();
-        //var_dump($this->series);
-        $options = (string)new Json($this->options);
+        $options = (string)(new Json($this->options))->addOption(JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES);
 
         if (!$this->containerSelector) {
             if (!$this->id) {
