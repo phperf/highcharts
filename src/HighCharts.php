@@ -141,7 +141,11 @@ class HighCharts
         $value = array_pop($args);
         $t = &$this->options;
         foreach ($args as $arg) {
-            $t = &$t[$arg];
+            if ($arg === null) {
+                $t = &$t[];
+            } else {
+                $t = &$t[$arg];
+            }
         }
         $t = $value;
         return $this;
@@ -264,6 +268,19 @@ class HighCharts
         ];
     }
 
+    public $class = 'highcharts';
+
+    /**
+     * @param string $class
+     * @return HighCharts
+     */
+    public function setClass($class)
+    {
+        $this->class = $class;
+        return $this;
+    }
+
+
     public function render()
     {
         if ($this->withJsonZoom) {
@@ -291,7 +308,7 @@ class HighCharts
             }
             $this->containerSelector = $this->id;
             ?>
-<div id="<?php echo $this->containerSelector ?>"></div>
+<div id="<?php echo $this->containerSelector ?>" class="<?= $this->class ?>"></div>
 <?php
             $this->containerSelector = '#' . $this->containerSelector;
         }
